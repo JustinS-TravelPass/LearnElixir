@@ -1,3 +1,5 @@
+#This file walk through defining modules, funcitons, private function, aliases, and piping the reuslts of functions to one another.
+
 defmodule MyApp.Calc do # :"Elixir.MyApp.Calc"
   alias IO, as: I
 
@@ -13,6 +15,6 @@ defmodule MyApp.Calc do # :"Elixir.MyApp.Calc"
   end
 
   defp do_something do # using def with p as a suffix makes the function private and only accessible within the module
-    [1,2,3] |> length |> I.puts #length is comig from the kernal module which is implicitly imported
+    [1,2,3] |> length |> I.puts #length is coming from the Kernal module which is implicitly imported
   end
 end
