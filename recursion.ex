@@ -23,12 +23,10 @@ defmodule Recursion.ListUtils do
   def max([current_maximum, head | tail ]) when current_maximum < head do
     max([head | tail])
   end
-
   # If the first current_maximum in the tail is greater than or equal to the current_maximum then we call "max" again and pass in a new list with the current_maximum as the head and the new tail
   def max([current_maximum, head | tail ]) when current_maximum >= head do
     max([current_maximum | tail])
   end
-
   #Found maximum current_maximum in the list
   def max([current_maximum]), do: current_maximum
 
