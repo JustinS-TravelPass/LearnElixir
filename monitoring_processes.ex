@@ -10,7 +10,7 @@ defmodule MonitoringProcesses do
     pid = spawn fn -> work() end
     Process.monitor(pid)
 
-    # Below is another way to spawn a new process and monitor it with the same result as above..
+    # Below is another way to spawn a new process and monitor it with the same result as above.
     # spawn_monitor(MonitoringProcesses, :work, [])
 
     receive do
