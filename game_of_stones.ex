@@ -1,5 +1,5 @@
 # This module creates a game called "GAME OF STONES"
-# There is a pile of stones with a random count.
+# There is a pile of stones with a count determined by the player.
 # Each player takes a turn and picks up 1-3 stones from the pile.
 # The player who picks up the last stone loses.
 # Powered by a long running recursive server process.
@@ -68,7 +68,7 @@ defmodule GameServer do
 
   defp do_take({sender, player, num_stones_taken, current_stones}) when
   num_stones_taken == current_stones do
-    send(sender, {:winner, next_player(player)})
+    send(sender, {:winner, next_player(player), player})
 
     {nil, 0}
   end
@@ -89,7 +89,10 @@ defmodule GameClient do
   require Integer
 
   def play() do
-    IO.puts("<> WELCOME TO THE GAME OF STONES <>")
+    Typewriter.print_line("<> WELCOME TO THE GAME OF STONES <>")
+    Typewriter.print_line("Rule #1: Players take turns picking up 1 to 3 stones from the pile.")
+    Typewriter.print_line("Rule #2: The player who picks up the last stone from the pile loses!")
+    Typewriter.print_line("Rule #3: Have fun!")
 
     GameServer.start()
 
@@ -101,29 +104,28 @@ defmodule GameClient do
 
     receive do
       {current_player, current_stones} ->
-        IO.puts("Game started! Player #{current_player} starts with #{current_stones} stones in the pile.")
+        Typewriter.print_line("Game started! Player [#{current_player}] starts with [#{current_stones}] stones in the pile.")
+        take({current_player, current_stones})
     end
-
-    take(1)
   end
 
   def exit_game() do
     send(:game_server, {:exit, self()})
   end
 
-  defp take(current_player) do
-    send(:game_server, {:take, self(), ask_stones(current_player)})
+  defp take({current_player, current_stones}) do
+    send(:game_server, {:take, self(), ask_stones({current_player, current_stones})})
 
     receive do
       {:next_turn, next_player, stones_taken, new_stones_count} ->
-        IO.puts("Player #{current_player} takes #{stones_taken} stones. #{new_stones_count} stones left.")
-        take(next_player)
-      {:winner, winner} ->
-        IO.puts("Player #{winner} wins!")
+        Typewriter.print_line("Player [#{current_player}] took [#{stones_taken}] stones. [#{new_stones_count}] stones left.")
+        take({next_player, new_stones_count})
+      {:winner, winner, loser} ->
+        Typewriter.print_line("Player [#{winner}] wins! While player[#{loser}] sucks at picking up rocks!")
         ask_restart()
       {:error, reason} ->
         IO.puts("Error: #{reason}")
-        take(current_player)
+        take({current_player, current_stones})
       after 5000 -> IO.puts(:stderr, "Server Timeout!")
     end
   end
@@ -139,7 +141,7 @@ defmodule GameClient do
     cond do
       String.starts_with?(answer, "y") -> play()
       String.starts_with?(answer, "n") ->
-        IO.puts("Thanks for playing!")
+        Typewriter.print_line("Thanks for playing!")
         exit_game()
       true ->
         IO.puts("Invalid answer. Please enter 'y' or 'n'.")
@@ -147,8 +149,8 @@ defmodule GameClient do
     end
   end
 
-  defp ask_stones(current_player) do
-    IO.gets("\nPlayer #{current_player}, please take from 1 to 3 stones:") |>
+  defp ask_stones({current_player, stones_count}) do
+    IO.gets("\nPlayer [#{current_player}], please take 1 to 3 stones from the pile of [#{stones_count}]:") |>
     String.trim |>
     Integer.parse |>
     handle_ask_stones
@@ -156,6 +158,26 @@ defmodule GameClient do
 
   defp handle_ask_stones({count, _}), do: count
   defp handle_ask_stones(:error), do: nil
+end
+
+defmodule Typewriter do
+  def print_line(line) do
+    line |>
+    String.split("") |>
+    Enum.each(&Typewriter.print_char/1)
+
+    IO.write("\n")
+
+    # You can use Erlang modules in Elixir.
+    # Erlang modules are prefixed with a semi-colon like Atoms.
+    :timer.sleep(150)
+  end
+
+  def print_char(char) do
+    char |> IO.write
+
+    :timer.sleep(25)
+  end
 end
 
 GameClient.play()
