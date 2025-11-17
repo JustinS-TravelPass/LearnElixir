@@ -14,7 +14,40 @@ defmodule GenServerModule do
   use GenServer
 
   def start(initial_state) do
-    GenServer.start(__MODULE__, initial_state)
+    GenServer.start(__MODULE__, initial_state, name: :calculator)
+  end
+
+  def sqrt() do
+    GenServer.cast(:calculator, :sqrt)
+  end
+
+  def add(number) do
+    GenServer.cast(:calculator, {:add, number})
+  end
+
+  def result() do
+    # timeout is 5 seconds
+    GenServer.call(:calculator, :result)
+  end
+
+  # Synchronous request
+  def handle_call(:result, _, current_state) do
+    {:reply, current_state, current_state}
+  end
+
+  def terminate(reason, current_state) do
+    IO.puts("Terminated!")
+    reason |> IO.inspect()
+    current_state |> IO.inspect()
+  end
+
+  # Asyncronous request
+  def handle_cast(:sqrt, current_state) do
+    {:noreply, :math.sqrt(current_state)}
+  end
+
+  def handle_cast({:add, number}, current_state) do
+    {:noreply, current_state + number}
   end
 
   # This function is called when the server is started.
@@ -30,4 +63,7 @@ defmodule GenServerModule do
   end
 end
 
-{:ok, pid} = GenServerModule.start(0) |> IO.inspect()
+{:ok, _} = GenServerModule.start(4) |> IO.inspect()
+GenServerModule.sqrt() |> IO.inspect()
+GenServerModule.add(10) |> IO.inspect()
+GenServerModule.result() |> IO.inspect()
