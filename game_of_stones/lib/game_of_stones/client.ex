@@ -23,7 +23,7 @@ defmodule GameOfStones.Client do
   def parse(arguments) do
     {opts, _, _} = OptionParser.parse(arguments, switches: [stones: :integer])
     IO.inspect(opts)
-    opts |> Keyword.get(:stones, 30)
+    opts |> Keyword.get(:stones, Application.get_env(:game_of_stones, :default_stones))
   end
 
   def play(initial_stones_num \\ 30) do
