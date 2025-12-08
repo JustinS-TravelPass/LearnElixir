@@ -21,7 +21,8 @@ defmodule GameOfStones.Client do
   defp start_game! do
     case GameOfStones.Server.stats() do
       {player, stones} ->
-        IO.puts("Welcome! It's player #{player}'s turn with #{stones} stones in the pile.")
+        message = "Welcome! It's player #{player}'s turn with #{stones} stones in the pile."
+        IO.puts(Colors.green(message))
     end
 
     take()
