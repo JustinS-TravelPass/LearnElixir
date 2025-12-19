@@ -4,6 +4,7 @@ defmodule GameOfStones.Application do
   def start(_type, _args) do
     # Define processes to Supervise
     children = [
+      GameOfStones.Storage,
       GameOfStones.Server
     ]
 

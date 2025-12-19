@@ -28,16 +28,16 @@ defmodule GameOfStones.Client do
 
   def play(initial_stones_num \\ 30) do
     case GameOfStones.Server.set_stones(initial_stones_num) do
-      {player, stones} ->
+      {player, stones, :game_in_progress} ->
         message = "Welcome! It's player #{player}'s turn with #{stones} stones in the pile."
+        IO.puts(Colors.green(message))
+
+      {player, stones, :game_continue} ->
+        message = "Welcome back! It's player #{player}'s turn with #{stones} stones in the pile."
         IO.puts(Colors.green(message))
     end
 
     take()
-  end
-
-  # Private functions
-  defp start_game! do
   end
 
   defp take() do
