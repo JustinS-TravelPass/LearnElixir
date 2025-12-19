@@ -27,19 +27,17 @@ defmodule GameOfStones.Client do
   end
 
   def play(initial_stones_num \\ 30) do
-    GameOfStones.Server.start(initial_stones_num)
-    start_game!()
-  end
-
-  # Private functions
-  defp start_game! do
-    case GameOfStones.Server.stats() do
+    case GameOfStones.Server.set_stones(initial_stones_num) do
       {player, stones} ->
         message = "Welcome! It's player #{player}'s turn with #{stones} stones in the pile."
         IO.puts(Colors.green(message))
     end
 
     take()
+  end
+
+  # Private functions
+  defp start_game! do
   end
 
   defp take() do

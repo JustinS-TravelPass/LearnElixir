@@ -15,7 +15,11 @@ defmodule GameOfStones.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      env: [default_stones: 30],
+      extra_applications: [:logger],
+      # callback module for the application
+      # Invoked when the application is started.
+      mod: {GameOfStones.Application, []}
     ]
   end
 
