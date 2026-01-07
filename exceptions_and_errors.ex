@@ -18,14 +18,18 @@ defmodule Exceptions do
 
   # This is most useful for handling API calls.
   def run3 do
-    try do # This is kind of like a try catch block in other languages like Javascript.
+    # This is kind of like a try catch block in other languages like Javascript.
+    # This is like the catch block in other languages like Javascript.
+    # This is like the finally block in other languages like Javascript.
+    # Executes only if there are no errors. This is like then .then block in other languages like Javascript.
+    try do
       Keyword.fetch!([], :a)
-    rescue # This is like the catch block in other languages like Javascript.
+    rescue
       KeyError -> "Key cannot be found..."
       ArgumentError -> "Argument error..."
-    after # This is like the finally block in other languages like Javascript.
+    after
       IO.puts("I've executed no matter what!")
-    else # Executes only if there are no errors. This is like then .then block in other languages like Javascript.
+    else
       5 -> "found five!"
       _ -> "not sure what this is..."
     end
@@ -38,13 +42,14 @@ defmodule Exceptions do
   # You can create your own exceptions by defining a defexception module.
   # This will allow you to raise a generic error.
   defexception message: "An error occured!"
+
   def run5() do
     raise Exceptions
   end
 
   def run6 do
     try do
-      throw "error"
+      throw("error")
     catch
       "error" -> "error caught!"
       _ -> "unknown error!"
@@ -54,7 +59,7 @@ defmodule Exceptions do
   # Process Exits normally
   def run7 do
     try do
-      exit :normal
+      exit(:normal)
     catch
       _ -> ""
     end
@@ -62,7 +67,7 @@ defmodule Exceptions do
 
   def run8 do
     try do
-      exit :very_bad
+      exit(:very_bad)
     catch
       :exit, :very_bad -> "very bad error!"
       :exit, _ -> "very very bad error!"
@@ -70,11 +75,11 @@ defmodule Exceptions do
   end
 end
 
-Exceptions.run() |> IO.inspect
+Exceptions.run() |> IO.inspect()
 
-Exceptions.run2() |> IO.inspect
+Exceptions.run2() |> IO.inspect()
 
-Exceptions.run3() |> IO.inspect
+Exceptions.run3() |> IO.inspect()
 
 # Exceptions.run4("test") |> IO.inspect
 
@@ -84,4 +89,4 @@ Exceptions.run3() |> IO.inspect
 
 # Exceptions.run7() |> IO.inspect
 
-Exceptions.run8() |> IO.inspect
+Exceptions.run8() |> IO.inspect()

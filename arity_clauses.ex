@@ -1,13 +1,13 @@
-#This file walks through arity clauses in Elixir. Arity is the number of arguments a function takes.
+# This file walks through arity clauses in Elixir. Arity is the number of arguments a function takes.
 
 defmodule ArityClauses.Calc do
-
   def factorial(0) do
     1
   end
 
   # Factorial of 5
-  def factorial(a) when is_integer(a) and a > 0 do # The "when" expression is called a "guard clause". && and || are not suported in guard clauses.
+  # The "when" expression is called a "guard clause". && and || are not suported in guard clauses.
+  def factorial(a) when is_integer(a) and a > 0 do
     a * factorial(a - 1)
   end
 
@@ -30,10 +30,10 @@ defmodule ArityClauses.Calc do
 
   # The Arity of plus can be written as plus/1 meaning the plus function takes 1 argument.
   def plus(a) do
-    plus a, 0
+    plus(a, 0)
   end
 
-  #The Arity of this function can be written as plus/2. We've made the second argument optional and set its default value to 0.
+  # The Arity of this function can be written as plus/2. We've made the second argument optional and set its default value to 0.
   def plus(a, b \\ 0) do
     a + b
   end

@@ -6,7 +6,7 @@ defmodule Conditional do
   end
 
   def run2(val) do
-    #if checks if the condition is truthy
+    # if checks if the condition is truthy
     if val == 5 do
       "the value is 5"
     else
@@ -40,8 +40,8 @@ defmodule Conditional do
   def run5(argv) do
     parsed_args = OptionParser.parse(argv, switches: [debug: :boolean])
 
-    #elem comes from the Kernel module. Which is implicity imported.
-    case  Keyword.fetch(elem(parsed_args, 0), :debug) do
+    # elem comes from the Kernel module. Which is implicity imported.
+    case Keyword.fetch(elem(parsed_args, 0), :debug) do
       {:ok, true} -> "debug mode"
       {:ok, false} -> "normal mode"
       _ -> "no debug flag"
@@ -49,13 +49,13 @@ defmodule Conditional do
   end
 end
 
-Conditional.run(5) |> IO.inspect
+Conditional.run(5) |> IO.inspect()
 
-Conditional.run2(5) |> IO.inspect
+Conditional.run2(5) |> IO.inspect()
 
-Conditional.run3(6) |> IO.inspect
+Conditional.run3(6) |> IO.inspect()
 
-Conditional.run4("hello there!") |> IO.inspect
+Conditional.run4("hello there!") |> IO.inspect()
 
 # Use this command: "iex conditional_logic.ex --debug=true" to test the below function.
-Conditional.run5(System.argv) |> IO.inspect
+Conditional.run5(System.argv()) |> IO.inspect()

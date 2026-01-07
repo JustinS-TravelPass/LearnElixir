@@ -1,5 +1,7 @@
 defmodule BuiltInFunction.List do
-  def delete(index) when not is_integer(index) or index < 0 or index == :nil, do: {:error, :invalid_index}
+  def delete(index) when not is_integer(index) or index < 0 or index == nil,
+    do: {:error, :invalid_index}
+
   def delete(index) do
     List.delete_at(list(), index)
   end
@@ -22,19 +24,24 @@ defmodule BuiltInFunction.List do
   end
 
   def list do
-    [1,2,3,4,5]
+    [1, 2, 3, 4, 5]
   end
 end
 
-BuiltInFunction.List.delete(0) |> IO.inspect # <-- returns [2,3,4,5]
+# <-- returns [2,3,4,5]
+BuiltInFunction.List.delete(0) |> IO.inspect()
 
-BuiltInFunction.List.flatten() |> IO.inspect # <-- returns [1,2,3,4,5,1,2,3,4,5,1,2,3,4,5]
+# <-- returns [1,2,3,4,5,1,2,3,4,5,1,2,3,4,5]
+BuiltInFunction.List.flatten() |> IO.inspect()
 
-BuiltInFunction.List.first() |> IO.inspect # <-- returns 1
+# <-- returns 1
+BuiltInFunction.List.first() |> IO.inspect()
 
-BuiltInFunction.List.last() |> IO.inspect # <-- returns 5
+# <-- returns 5
+BuiltInFunction.List.last() |> IO.inspect()
 
-BuiltInFunction.List.insert() |> IO.inspect # <-- returns [1,2,"foobar",3,4,5]
+# <-- returns [1,2,"foobar",3,4,5]
+BuiltInFunction.List.insert() |> IO.inspect()
 
 defmodule BuiltInFunction.Enum do
   def all do
@@ -62,21 +69,27 @@ defmodule BuiltInFunction.Enum do
   end
 
   def list do
-    [1,2,3,4,5]
+    [1, 2, 3, 4, 5]
   end
 end
 
-BuiltInFunction.Enum.all() |> IO.inspect # <-- returns true
+# <-- returns true
+BuiltInFunction.Enum.all() |> IO.inspect()
 
-BuiltInFunction.Enum.each() |> IO.inspect # <-- returns 1, 2, 3, 4, 5
+# <-- returns 1, 2, 3, 4, 5
+BuiltInFunction.Enum.each() |> IO.inspect()
 
-BuiltInFunction.Enum.map() |> IO.inspect # <-- returns [2, 4, 6, 8, 10]
+# <-- returns [2, 4, 6, 8, 10]
+BuiltInFunction.Enum.map() |> IO.inspect()
 
-BuiltInFunction.Enum.reduce() |> IO.inspect # <-- returns 15
+# <-- returns 15
+BuiltInFunction.Enum.reduce() |> IO.inspect()
 
-BuiltInFunction.Enum.max() |> IO.inspect # <-- returns 5
+# <-- returns 5
+BuiltInFunction.Enum.max() |> IO.inspect()
 
-BuiltInFunction.Enum.min() |> IO.inspect # <-- returns 1
+# <-- returns 1
+BuiltInFunction.Enum.min() |> IO.inspect()
 
 defmodule BuiltInFunction.Map do
   def get do
@@ -101,7 +114,7 @@ defmodule BuiltInFunction.Map do
   end
 
   def update do
-    new_map =%{map() | title: "The Dark Knight", year: 2008}
+    new_map = %{map() | title: "The Dark Knight", year: 2008}
     new_map
   end
 
@@ -110,17 +123,23 @@ defmodule BuiltInFunction.Map do
   end
 end
 
-BuiltInFunction.Map.get() |> IO.inspect # <-- returns "Titanic"
+# <-- returns "Titanic"
+BuiltInFunction.Map.get() |> IO.inspect()
 
-BuiltInFunction.Map.has_key() |> IO.inspect # <-- returns true
+# <-- returns true
+BuiltInFunction.Map.has_key() |> IO.inspect()
 
-BuiltInFunction.Map.merge() |> IO.inspect # <-- returns %{title: "Titanic", year: 1997, director: "James Cameron"}
+# <-- returns %{title: "Titanic", year: 1997, director: "James Cameron"}
+BuiltInFunction.Map.merge() |> IO.inspect()
 
-BuiltInFunction.Map.keys() |> IO.inspect # <-- returns [:title, :year]
+# <-- returns [:title, :year]
+BuiltInFunction.Map.keys() |> IO.inspect()
 
-BuiltInFunction.Map.pattern_matching() |> IO.inspect # <-- returns "Titanic"
+# <-- returns "Titanic"
+BuiltInFunction.Map.pattern_matching() |> IO.inspect()
 
-BuiltInFunction.Map.update() |> IO.inspect # <-- returns %{title: "The Dark Knight", year: 2008}
+# <-- returns %{title: "The Dark Knight", year: 2008}
+BuiltInFunction.Map.update() |> IO.inspect()
 
 defmodule BuiltInFunction.Keyword do
   def get_value do
@@ -136,6 +155,8 @@ defmodule BuiltInFunction.Keyword do
   end
 end
 
-BuiltInFunction.Keyword.get_value() |> IO.inspect # <-- returns :red
+# <-- returns :red
+BuiltInFunction.Keyword.get_value() |> IO.inspect()
 
-BuiltInFunction.Keyword.get_values() |> IO.inspect # <-- returns [10, 400]
+# <-- returns [10, 400]
+BuiltInFunction.Keyword.get_values() |> IO.inspect()

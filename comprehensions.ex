@@ -2,12 +2,11 @@ defmodule Comp do
   require Integer
 
   def format_data(data) do
-    for {name, age} <- data, into: Map.new,
-    do: {format_name(name), age}
+    for {name, age} <- data, into: Map.new(), do: {format_name(name), age}
   end
 
   def format_name(name) do
-    name |> String.downcase |> String.to_atom
+    name |> String.downcase() |> String.to_atom()
   end
 
   def demo(list) do
@@ -16,8 +15,7 @@ defmodule Comp do
   end
 
   def demo2(list1, list2) do
-    for el1 <- list1, el2 <- list2, Integer.is_even(el1), Integer.is_even(el2),
-    do: {el1, el2}
+    for el1 <- list1, el2 <- list2, Integer.is_even(el1), Integer.is_even(el2), do: {el1, el2}
   end
 
   def decipher(cipher_string) do
@@ -26,11 +24,11 @@ defmodule Comp do
   end
 end
 
-Comp.decipher("fmjyjs") |> IO.inspect
+Comp.decipher("fmjyjs") |> IO.inspect()
 
-Comp.demo(1..10) |> IO.inspect
+Comp.demo(1..10) |> IO.inspect()
 
-Comp.demo2(1..5, 6..10) |> IO.inspect
+Comp.demo2(1..5, 6..10) |> IO.inspect()
 
 data = %{"Joe" => 50, "Jane" => 20, "Jim" => 30}
-Comp.format_data(data) |> IO.inspect
+Comp.format_data(data) |> IO.inspect()

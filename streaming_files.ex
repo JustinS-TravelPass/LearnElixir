@@ -1,14 +1,15 @@
 defmodule Typewriter do
   def print_file(file_path) do
-    File.stream!(file_path) |> # \n
-    Stream.map(&(String.replace(&1, "\n", ""))) |>
-    Enum.each(&Typewriter.print_line/1)
+    # \n
+    File.stream!(file_path)
+    |> Stream.map(&String.replace(&1, "\n", ""))
+    |> Enum.each(&Typewriter.print_line/1)
   end
 
   def print_line(line) do
-    line |>
-    String.split("") |>
-    Enum.each(&Typewriter.print_char/1)
+    line
+    |> String.split("")
+    |> Enum.each(&Typewriter.print_char/1)
 
     IO.write("\n")
 
@@ -18,7 +19,7 @@ defmodule Typewriter do
   end
 
   def print_char(char) do
-    char |> IO.write
+    char |> IO.write()
 
     :timer.sleep(100)
   end
